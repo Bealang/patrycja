@@ -1,0 +1,1261 @@
+:root {
+  /* Candy Pink Palette - Brand Colors */
+  --bg-primary: #fff0f5;
+  --bg-secondary: #ffe4e1;
+  /* MistyRose */
+  --accent-color: #ff1493;
+  /* DeepPink */
+  --text-dark: #8b0000;
+  /* DarkRed */
+  --text-light: #ffffff;
+  --heart-color: #ff69b4;
+  /* HotPink */
+
+  /* Highlighted Screen Palette */
+  --highlight-bg: #ff1493;
+  --highlight-text: #fff0f5;
+  --highlight-accent: #ffb6c1;
+  /* LightPink */
+
+  /* Final Screen Palette (Scoliosis Green Ribbon) */
+  --final-bg: #f2fff2;
+  /* Honeydew */
+  --final-accent: #3cb371;
+  /* MediumSeaGreen */
+  --final-text: #004d00;
+  /* Deep Dark Green */
+
+  /* Emil Kowalski Animation Variables (Slower & Dreamier) */
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --transition-time: 800ms;
+  /* Slower romantic timing */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+  color: var(--text-dark);
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+}
+
+/* Tło z pływającymi elementami */
+.hearts-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 15;
+  overflow: hidden;
+}
+
+.heart-particle {
+  position: absolute;
+  color: var(--heart-color);
+  opacity: 0.15;
+  font-size: 24px;
+  animation: floatUp 15s linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.15;
+  }
+
+  90% {
+    opacity: 0.15;
+  }
+
+  100% {
+    transform: translateY(-20vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Aplikacja */
+#app-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Ekrany */
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(60px) scale(0.97);
+  filter: blur(8px);
+  transition: opacity var(--transition-time) var(--ease-out),
+    transform var(--transition-time) var(--ease-out),
+    filter var(--transition-time) var(--ease-out);
+  background-color: var(--bg-primary);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.screen.active {
+  opacity: 1;
+  pointer-events: auto;
+  filter: blur(0px);
+  z-index: 10;
+}
+
+.screen.exiting {
+  opacity: 0;
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+/* Wyjście ekranu w dół przy ruchu wstecz */
+.screen.exiting-down {
+  opacity: 0;
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+/* --- Kierunki Animacji Ekranów --- */
+
+/* Domyślny kierunek w pionie (dla ekranu powitalnego) */
+.screen {
+  transform: translateY(60px) scale(0.97);
+}
+
+.screen.active {
+  transform: translateY(0) scale(1);
+}
+
+.screen.exiting {
+  transform: translateY(-60px) scale(0.97);
+}
+
+.screen.exiting-down {
+  transform: translateY(60px) scale(0.97);
+}
+
+/* Slide Right: wchodzi z prawej (100vw), wychodzi w lewo (-100vw) */
+.screen.slide-right {
+  transform: translateX(100vw);
+}
+
+.screen.slide-right.active {
+  transform: translateX(0);
+}
+
+.screen.slide-right.exiting {
+  transform: translateX(-100vw);
+}
+
+.screen.slide-right.exiting-down {
+  transform: translateX(100vw);
+}
+
+/* Slide Left: wchodzi z lewej (-100vw), wychodzi w prawo (100vw) */
+.screen.slide-left {
+  transform: translateX(-100vw);
+}
+
+.screen.slide-left.active {
+  transform: translateX(0);
+}
+
+.screen.slide-left.exiting {
+  transform: translateX(100vw);
+}
+
+.screen.slide-left.exiting-down {
+  transform: translateX(-100vw);
+}
+
+/* Slide Bottom: wchodzi z dołu (100vh), wychodzi w górę (-100vh) */
+.screen.slide-bottom {
+  transform: translateY(100vh);
+}
+
+.screen.slide-bottom.active {
+  transform: translateY(0);
+}
+
+.screen.slide-bottom.exiting {
+  transform: translateY(-100vh);
+}
+
+.screen.slide-bottom.exiting-down {
+  transform: translateY(100vh);
+}
+
+/* Slide Top: wchodzi z góry (-100vh), wychodzi w dół (100vh) */
+.screen.slide-top {
+  transform: translateY(-100vh);
+}
+
+.screen.slide-top.active {
+  transform: translateY(0);
+}
+
+.screen.slide-top.exiting {
+  transform: translateY(100vh);
+}
+
+.screen.slide-top.exiting-down {
+  transform: translateY(-100vh);
+}
+
+/* Slide Scale: wchodzi przez scale up, wychodzi obracając się */
+.screen.slide-scale {
+  transform: scale(0.9) rotate(-1.5deg);
+}
+
+.screen.slide-scale.active {
+  transform: scale(1) rotate(0deg);
+}
+
+.screen.slide-scale.exiting {
+  transform: scale(0.95) rotate(1.5deg);
+}
+
+.screen.slide-scale.exiting-down {
+  transform: scale(0.9) rotate(-1.5deg);
+}
+
+
+/* --- Animacje Stagger wewnątrz ekranów --- */
+
+/* Stan wyjściowy elementów wewnątrz nieaktywnego ekranu */
+.screen .date-badge,
+.screen h2.event-title,
+.screen p.description,
+.screen .counter-card,
+.screen .slide-polaroid,
+.screen .btn-primary,
+.screen .btn-secondary,
+.screen .torn-paper-wrapper,
+.screen .ribbon-icon,
+.screen .romantic-title {
+  opacity: 0;
+  transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+}
+
+/* Początkowe przesunięcie z prawej dla slide-right */
+.screen.slide-right .date-badge,
+.screen.slide-right h2.event-title,
+.screen.slide-right p.description,
+.screen.slide-right .counter-card,
+.screen.slide-right .slide-polaroid {
+  transform: translateX(40px);
+}
+
+/* Początkowe przesunięcie z lewej dla slide-left */
+.screen.slide-left .date-badge,
+.screen.slide-left h2.event-title,
+.screen.slide-left p.description,
+.screen.slide-left .counter-card,
+.screen.slide-left .slide-polaroid {
+  transform: translateX(-40px);
+}
+
+/* Początkowe przesunięcie z góry dla slide-top */
+.screen.slide-top .date-badge,
+.screen.slide-top h2.event-title,
+.screen.slide-top p.description,
+.screen.slide-top .counter-card,
+.screen.slide-top .slide-polaroid {
+  transform: translateY(-40px);
+}
+
+/* Początkowe przesunięcie z dołu dla slide-bottom i domyślnego */
+.screen.slide-bottom .date-badge,
+.screen.slide-bottom h2.event-title,
+.screen.slide-bottom p.description,
+.screen.slide-bottom .counter-card,
+.screen.slide-bottom .slide-polaroid,
+.screen .date-badge,
+.screen h2.event-title,
+.screen p.description,
+.screen .counter-card,
+.screen .slide-polaroid,
+.screen .btn-primary,
+.screen .btn-secondary,
+.screen .torn-paper-wrapper,
+.screen .ribbon-icon,
+.screen .romantic-title {
+  transform: translateY(40px);
+}
+
+/* Początkowe przesunięcie dla scale */
+.screen.slide-scale .date-badge,
+.screen.slide-scale h2.event-title,
+.screen.slide-scale p.description,
+.screen.slide-scale .counter-card,
+.screen.slide-scale .ribbon-icon,
+.screen.slide-scale .romantic-title {
+  transform: scale(0.95) translateY(20px);
+}
+
+/* Stan aktywny (wjechanie i pełna widoczność z opóźnieniami) */
+.screen.active .date-badge {
+  opacity: 1;
+  transform: translate(0) scale(1);
+  transition-delay: 200ms;
+}
+
+.screen.active h2.event-title,
+.screen.active .romantic-title {
+  opacity: 1;
+  transform: translate(0) scale(1);
+  transition-delay: 350ms;
+}
+
+.screen.active p.description {
+  opacity: 1;
+  transform: translate(0) scale(1);
+  transition-delay: 500ms;
+}
+
+.screen.active .counter-card {
+  opacity: 1;
+  transform: translate(0) scale(1);
+  transition-delay: 650ms;
+}
+
+.screen.active .slide-polaroid,
+.screen.active .torn-paper-wrapper {
+  opacity: 1;
+  transform: translate(0) scale(1);
+  transition-delay: 400ms;
+}
+
+.screen.active .btn-primary,
+.screen.active .btn-secondary {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 750ms;
+}
+
+.screen.active .ribbon-icon {
+  opacity: 1;
+  transform: translate(0) scale(1);
+  transition-delay: 200ms;
+}
+
+/* Stan wyjściowy (błyskawiczne zanikanie bez opóźnień) */
+.screen.exiting .date-badge,
+.screen.exiting h2.event-title,
+.screen.exiting p.description,
+.screen.exiting .counter-card,
+.screen.exiting .slide-polaroid,
+.screen.exiting .btn-primary,
+.screen.exiting .btn-secondary,
+.screen.exiting .torn-paper-wrapper,
+.screen.exiting .ribbon-icon,
+.screen.exiting .romantic-title,
+.screen.exiting-down .date-badge,
+.screen.exiting-down h2.event-title,
+.screen.exiting-down p.description,
+.screen.exiting-down .counter-card,
+.screen.exiting-down .slide-polaroid,
+.screen.exiting-down .btn-primary,
+.screen.exiting-down .btn-secondary,
+.screen.exiting-down .torn-paper-wrapper,
+.screen.exiting-down .ribbon-icon,
+.screen.exiting-down .romantic-title {
+  opacity: 0;
+  transition: opacity 250ms var(--ease-out), transform 250ms var(--ease-out);
+  transition-delay: 0ms !important;
+}
+
+/* Ekrany ze zdjęciami: minimalne marginesy na telefonie */
+.screen.slider-screen {
+  padding: 8px !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.screen.slider-screen .content-wrapper {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Kontener zawartości */
+.content-wrapper {
+  flex-grow: 1;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Layouty */
+.align-bottom {
+  justify-content: flex-end;
+  padding-bottom: 96px;
+}
+
+.align-top {
+  justify-content: flex-start;
+  padding-top: 96px;
+}
+
+.center-all {
+  justify-content: center;
+  text-align: center;
+}
+
+/* Typografia */
+.romantic-title {
+  font-family: 'Caveat', cursive;
+  font-size: 3.5rem;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  color: var(--accent-color);
+}
+
+.date-badge {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  background-color: var(--accent-color);
+  padding: 8px 16px;
+  border-radius: 24px;
+  align-self: flex-start;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 16px rgba(255, 20, 147, 0.15);
+}
+
+.center-all .date-badge {
+  align-self: center;
+}
+
+h2.event-title {
+  font-family: 'Caveat', cursive;
+  font-size: 3.25rem;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  color: var(--text-dark);
+}
+
+.massive-title {
+  font-size: 4.5rem !important;
+}
+
+p.description {
+  font-size: 1.2rem;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  opacity: 0.95;
+}
+
+/* Przyciski */
+.btn-primary,
+.btn-secondary {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0 32px;
+  height: 56px;
+  border-radius: 28px;
+  border: none;
+  background-color: var(--accent-color);
+  color: var(--text-light);
+  cursor: pointer;
+  align-self: center;
+  box-shadow: 0 6px 16px rgba(255, 20, 147, 0.25);
+  transition: transform 160ms var(--ease-out), filter 200ms ease;
+  z-index: 5;
+}
+
+.btn-primary:active,
+.btn-secondary:active {
+  transform: scale(0.95);
+  filter: brightness(0.9);
+}
+
+/* Elementy dekoracyjne tła */
+.decorative-element {
+  position: absolute;
+  font-size: 120px;
+  opacity: 0.04;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.top-left {
+  top: 8%;
+  left: -5%;
+  transform: rotate(-15deg);
+}
+
+.bottom-right {
+  bottom: 8%;
+  right: -5%;
+  transform: rotate(15deg);
+}
+
+.center-bg {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.06;
+  font-size: 200px;
+}
+
+/* Pulsowanie serca */
+.pulsing-heart {
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.12;
+  font-size: 150px;
+  animation: pulse 2s infinite var(--ease-in-out);
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 0.2;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Ekran Związku */
+.highlighted-screen {
+  background-color: var(--highlight-bg);
+  color: var(--highlight-text);
+}
+
+.highlighted-screen h2.event-title {
+  color: var(--highlight-text);
+}
+
+.highlighted-screen .special-badge {
+  background-color: var(--highlight-text);
+  color: var(--highlight-bg);
+}
+
+.sparkles {
+  font-size: 2.75rem;
+  margin-bottom: 8px;
+  animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Finał (Zielony Skolioza) */
+.final-screen {
+  background-color: var(--final-bg);
+  color: var(--final-text);
+}
+
+.final-screen .romantic-title {
+  color: var(--final-text);
+}
+
+.final-screen .ribbon-icon {
+  font-size: 4.5rem;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 4px 8px rgba(60, 179, 113, 0.2));
+  animation: pulse 3s infinite var(--ease-in-out);
+}
+
+.final-screen .btn-secondary {
+  background-color: var(--final-accent);
+  color: var(--text-light);
+  box-shadow: 0 6px 16px rgba(60, 179, 113, 0.25);
+}
+
+/* Liczniki 5-kolumnowe */
+.counter-card {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 20px 16px;
+  box-shadow: 0 10px 36px rgba(255, 20, 147, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  margin-top: 24px;
+}
+
+.highlight-counter {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  color: var(--highlight-text);
+}
+
+.counter-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+  margin-bottom: 14px;
+}
+
+.counter-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.counter-item {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 10px 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.highlight-counter .counter-item {
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--highlight-bg);
+}
+
+.counter-num {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.highlight-counter .counter-num {
+  color: var(--highlight-bg);
+}
+
+.counter-unit {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-dark);
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* Wyrwana Kartka Papieru (Torn Paper) - Dwuwarstwowy 3D, z pełnym wypełnieniem i marginesami */
+.torn-paper-wrapper {
+  position: relative;
+  filter: drop-shadow(0 16px 36px rgba(255, 20, 147, 0.25));
+  align-self: center;
+  margin: 16px 0;
+  width: 90%;
+  max-width: 290px;
+  aspect-ratio: 3 / 4;
+  /* Wyraźny pionowy układ */
+}
+
+.torn-paper-bg {
+  position: absolute;
+  top: 4px;
+  left: -4px;
+  width: 100%;
+  height: 100%;
+  background: #fffdfa;
+  clip-path: url(#paper-rip);
+  z-index: 1;
+}
+
+.torn-paper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  width: 100%;
+  height: 100%;
+  clip-path: url(#paper-rip);
+  z-index: 2;
+}
+
+.torn-paper img {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  bottom: 24px;
+  /* Polaroid biała ramka na dole */
+  width: calc(100% - 24px);
+  height: calc(100% - 36px);
+  object-fit: cover;
+  /* Wypełnia całą przestrzeń wewnątrz ramki bez pokazywania białego tła */
+  border-radius: 4px;
+}
+
+/* Polaroid Slider */
+.slider-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.slider-container {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  /* Nawigacja tylko serduszkami */
+}
+
+.slider-track {
+  display: flex;
+  width: 100%;
+}
+
+.slide {
+  scroll-snap-align: center;
+  flex: 0 0 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.slide-polaroid {
+  background: #fffdfa;
+  padding: 12px 12px 28px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  box-shadow: 0 12px 32px rgba(255, 20, 147, 0.1);
+  border-radius: 2px;
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-polaroid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Zachowuje oryginalne aspect ratio zdjęcia bez ucinania! */
+  max-height: 60vh;
+  /* Zapobiega zbyt długim zdjęciom wychodzącym poza ekran */
+  object-fit: contain;
+  /* Bezpieczne skalowanie */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.slider-hint {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  opacity: 0.7;
+  margin-top: 12px;
+  font-family: 'Outfit', sans-serif;
+  animation: pulseHint 2s infinite var(--ease-in-out);
+}
+
+@keyframes pulseHint {
+  0% {
+    transform: translateX(0);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateX(6px);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 0.5;
+  }
+}
+
+/* Wskazówka "Kliknij tutaj!" */
+.click-hint {
+  position: fixed;
+  bottom: 88px;
+  right: 48px;
+  z-index: 105;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--accent-color);
+  pointer-events: none;
+  font-family: 'Caveat', cursive;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
+}
+
+.click-hint.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hint-text {
+  font-size: 1.65rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transform: rotate(-10deg);
+  margin-bottom: -5px;
+  text-shadow: 0 2px 8px rgba(255, 20, 147, 0.15);
+}
+
+.hint-arrow {
+  width: 48px;
+  height: 48px;
+  transform: rotate(-10deg);
+}
+
+/* Nawigacja FAB */
+.fab-btn {
+  position: fixed;
+  bottom: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  color: var(--text-light);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(255, 20, 147, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out), background-color 200ms;
+}
+
+/* Wstecz */
+.prev-btn {
+  right: 92px;
+  transform: scale(0.8) rotate(90deg);
+}
+
+.prev-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1) rotate(90deg);
+}
+
+.prev-btn:active {
+  transform: scale(0.92) rotate(90deg);
+}
+
+/* Dalej */
+.next-btn {
+  right: 24px;
+  transform: scale(0.8) rotate(-90deg);
+}
+
+.next-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1) rotate(-90deg);
+}
+
+.next-btn:active {
+  transform: scale(0.92) rotate(-90deg);
+}
+
+.fab-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+/* Wersja na ekrany stacjonarne (PC) */
+@media (min-width: 768px) {
+  body {
+    font-size: 19px;
+  }
+
+  .screen.slider-screen {
+    padding: 24px !important;
+  }
+
+  .content-wrapper {
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(16px);
+    border-radius: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 24px 64px rgba(255, 20, 147, 0.05);
+  }
+
+  .highlighted-screen .content-wrapper {
+    background: rgba(255, 20, 147, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .final-screen .content-wrapper {
+    background: rgba(60, 179, 113, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .romantic-title {
+    font-size: 4.25rem;
+  }
+
+  h2.event-title {
+    font-size: 3.75rem;
+  }
+
+  .counter-num {
+    font-size: 2.35rem;
+  }
+
+  .counter-label {
+    font-size: 1.35rem;
+  }
+
+  .counter-unit {
+    font-size: 0.9rem;
+  }
+
+  .torn-paper-wrapper {
+    max-width: 320px;
+  }
+
+  .slide {
+    flex: 0 0 420px;
+    width: 420px;
+  }
+
+  .slider-container {
+    max-width: 420px;
+  }
+
+  .slide-polaroid {
+    max-width: 380px;
+  }
+}
+
+/* --- Overlay koperty startowej --- */
+.envelope-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: radial-gradient(circle at center, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out), filter 800ms var(--ease-out);
+  cursor: pointer;
+}
+
+/* Wygaszenie overlayu po kliknięciu */
+.envelope-overlay.fade-out {
+  opacity: 0;
+  filter: blur(16px);
+  transform: scale(1.1);
+  pointer-events: none;
+}
+
+/* Kontener koperty z efektem perspektywy */
+.envelope-container {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  perspective: 1000px;
+  margin-bottom: 24px;
+}
+
+/* Cień pod kopertą */
+.envelope-shadow {
+  position: absolute;
+  bottom: -20px;
+  left: 10%;
+  width: 80%;
+  height: 10px;
+  background: rgba(139, 0, 0, 0.08);
+  border-radius: 50%;
+  filter: blur(4px);
+  opacity: 0.8;
+}
+
+/* Główny kontener koperty */
+.envelope {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(139, 0, 0, 0.05);
+  transform-style: preserve-3d;
+}
+
+/* Wspólne właściwości dla klap koperty */
+.envelope .flap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* Klapa górna (Top flap) - rotacja 3D */
+.envelope .top-flap {
+  background: #ffffff;
+  clip-path: polygon(0 0, 50% 50%, 100% 0);
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  z-index: 5;
+  transition: transform 600ms var(--ease-in-out), z-index 100ms;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  filter: drop-shadow(0 2px 2px rgba(139, 0, 0, 0.05));
+}
+
+/* Po otwarciu klapa obraca się o 180 stopni do góry */
+.envelope.open .top-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+  /* Schodzi pod list, gdy jest otwarta */
+}
+
+/* Klapa lewa (Left flap) */
+.envelope .left-flap {
+  background: #fff5f5;
+  clip-path: polygon(0 0, 50% 50%, 0 100%);
+  z-index: 4;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+/* Klapa prawa (Right flap) */
+.envelope .right-flap {
+  background: #fff5f5;
+  clip-path: polygon(100% 0, 50% 50%, 100% 100%);
+  z-index: 4;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* Klapa dolna (Bottom flap) */
+.envelope .bottom-flap {
+  background: #ffebe8;
+  clip-path: polygon(0 100%, 50% 50%, 100% 100%);
+  z-index: 4;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* Karta z listem ukryta wewnątrz koperty */
+.envelope .letter {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  background: #fffcf9;
+  border-radius: 4px;
+  box-shadow: inset 0 0 10px rgba(139, 0, 0, 0.03);
+  z-index: 2;
+  transition: transform 600ms var(--ease-out);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(139, 0, 0, 0.05);
+}
+
+/* Animacja wysunięcia listu w górę */
+.envelope.open .letter {
+  transform: translateY(-120px);
+}
+
+/* Zawartość listu */
+.letter-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Serce pełniące rolę pieczęci i ozdoby */
+.heart-seal {
+  font-size: 2.2rem;
+  color: var(--accent-color);
+  filter: drop-shadow(0 4px 8px rgba(255, 20, 147, 0.3));
+  margin-bottom: 4px;
+  animation: heartPulse 1.5s infinite ease-in-out;
+}
+
+@keyframes heartPulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.letter-inner-text {
+  font-family: 'Caveat', cursive;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  opacity: 0;
+  transition: opacity 600ms var(--ease-out);
+  transition-delay: 600ms;
+}
+
+.envelope.open .letter-inner-text {
+  opacity: 1;
+}
+
+/* Napis podpowiedzi pod kopertą */
+.envelope-hint {
+  font-family: 'Caveat', cursive;
+  font-size: 1.8rem;
+  color: var(--accent-color);
+  opacity: 0.8;
+  margin-top: 12px;
+  animation: hintPulse 2s infinite ease-in-out;
+  text-align: center;
+}
+
+@keyframes hintPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* Pomocniczy kursor na ekranie startowym (ustawiony na środku koperty) */
+.helper-cursor {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  z-index: 2100;
+  transform: translate(-50%, -50%);
+  transition: opacity 400ms var(--ease-out);
+}
+
+.helper-cursor.flying {
+  animation: tapInPlace 1.6s infinite ease-in-out;
+}
+
+/* Animowany gest klikania/pulsowania samej dłoni */
+.cursor-hand {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+}
+
+/* Połyskujący ślad za dłonią */
+.cursor-glow {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(255, 20, 147, 0.5) 0%, rgba(255, 20, 147, 0) 70%);
+  border-radius: 50%;
+  animation: glowPulse 1.6s infinite ease-in-out;
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+
+  50% {
+    transform: scale(1.8);
+    opacity: 0.8;
+  }
+}
+
+@keyframes tapInPlace {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1) translateY(0);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(0.82) translateY(8px);
+  }
+}

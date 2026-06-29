@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nasza Historia</title>
+    <meta name="description"
+        content="Nasza Historia - interaktywna podróż przez najpiękniejsze wspólne momenty i wspomnienia.">
+    <meta property="og:title" content="Nasza Historia">
+    <meta property="og:description" content="Interaktywna podróż przez najpiękniejsze wspólne momenty i wspomnienia.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="img/glowne.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3">
+</head>
+
+<body>
+    <!-- Overlay koperty startowej -->
+    <div id="envelope-overlay" class="envelope-overlay" onclick="openEnvelope()">
+        <div class="envelope-container">
+            <div class="envelope">
+                <div class="flap top-flap"></div>
+                <div class="flap left-flap"></div>
+                <div class="flap right-flap"></div>
+                <div class="flap bottom-flap"></div>
+                <div class="letter">
+                    <div class="letter-content">
+                        <div class="heart-seal">❤️</div>
+                        <div class="letter-inner-text">Dzięki!!! ❤️</div>
+                    </div>
+                </div>
+            </div>
+            <div class="envelope-shadow"></div>
+        </div>
+
+        <div class="helper-cursor" id="envelope-cursor">
+            <div class="cursor-hand">👆</div>
+            <div class="cursor-glow"></div>
+        </div>
+    </div>
+
+    <div class="hearts-background" id="hearts-container"></div>
+
+    <div id="app-container">
+        <!-- Ekran 0: Powitanie z głownym zdjęciem -->
+        <section class="screen active" id="screen-0">
+            <div class="content-wrapper center-all">
+                <h1 class="romantic-title">HEJOOOO!</h1>
+                <p class="description">Pewnie zastanawiasz się co to jest 😘 Nie spojleruje - Kliknij tam na dole
+                    zaczynamy a potem nawigacje masz strzałkami w prawym dolnym. Zaczynaaaj ❤️❤️ A i sorki ze troche
+                    chaotycznie pisalem ale to bylo z emocjami pisane i z bólem bo robiłem to w łożku dzien po powrocie
+                    ze szpitala XD</p>
+
+                <div class="torn-paper-wrapper">
+                    <div class="torn-paper-bg"></div>
+                    <div class="torn-paper">
+                        <img src="img/glowne.jpg" alt="Główne zdjęcie">
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="nextScreen()">START!!</button>
+            </div>
+        </section>
+
+        <!-- Ekran 1: 30 stycznia -->
+        <section class="screen slide-right" id="screen-1">
+            <div class="content-wrapper center-all">
+                <div class="date-badge">30 Stycznia</div>
+                <h2 class="event-title">"hej" i Karolak - 1 wiadomość na insta </h2>
+                <p class="description">Napisalem tak trochę "a co mi szkodzi może coś z tego będzie" XD A wyszło i to
+                    coś bardzo fajnego 😘😘 Jak wysłałem ta wiadomość to tak się obsralem i stresowałem się czekając na
+                    twoją odpowiedź I CZY WGL ODPOWIESZ XDD ale końcowo się udało
+                </p>
+
+                <div class="counter-card">
+                    <div class="counter-label">Minęło już:</div>
+                    <div class="counter-grid">
+                        <div class="counter-item"><span class="counter-num" id="months-1">0</span><span
+                                class="counter-unit">mies</span></div>
+                        <div class="counter-item"><span class="counter-num" id="days-1">0</span><span
+                                class="counter-unit">dni</span></div>
+                        <div class="counter-item"><span class="counter-num" id="hours-1">0</span><span
+                                class="counter-unit">godz</span></div>
+                        <div class="counter-item"><span class="counter-num" id="mins-1">0</span><span
+                                class="counter-unit">min</span></div>
+                        <div class="counter-item"><span class="counter-num" id="secs-1">0</span><span
+                                class="counter-unit">sek</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="decorative-element top-left">💌</div>
+        </section>
+
+        <!-- Ekran 1.5: Slider 1 (4 zdjęcia) -->
+        <section class="screen slider-screen slide-bottom" id="screen-1-5">
+            <div class="content-wrapper center-all">
+                <div class="slider-wrapper">
+                    <div class="slider-container">
+                        <div class="slider-track">
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/604951b8-5ff6-4c24-a1d7-eb3f11769f69.jpg" alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_0199980D-5E08-4F92-B148-5518C2CF59F2.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_0E0DF029-F649-4265-A1DF-19DF7D8E9B2C.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_149DF36F-FDFF-4024-B00A-422438D5703F.png"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ekran 2: 9 luty -->
+        <section class="screen slide-left" id="screen-2">
+            <div class="content-wrapper center-all">
+                <div class="date-badge">9 Lutego</div>
+                <h2 class="event-title">Pierwsze spotkaniie - Łyżwy i Picka</h2>
+                <p class="description">Mimo trudności z logistyka busów i tym że tak się bałaś przed tym spotkaniem (no
+                    ja
+                    trochę tezz ale no) ta niezręczna cisza w busieee ale później było fajnie 😘❤️ i poszliśmy na pyszną
+                    picke (przypominam o twoim -1000 aura moment gdy chcialas zapłacić XDD)</p>
+
+                <div class="counter-card">
+                    <div class="counter-label">Minęło już:</div>
+                    <div class="counter-grid">
+                        <div class="counter-item"><span class="counter-num" id="months-3">0</span><span
+                                class="counter-unit">mies</span></div>
+                        <div class="counter-item"><span class="counter-num" id="days-3">0</span><span
+                                class="counter-unit">dni</span></div>
+                        <div class="counter-item"><span class="counter-num" id="hours-3">0</span><span
+                                class="counter-unit">godz</span></div>
+                        <div class="counter-item"><span class="counter-num" id="mins-3">0</span><span
+                                class="counter-unit">min</span></div>
+                        <div class="counter-item"><span class="counter-num" id="secs-3">0</span><span
+                                class="counter-unit">sek</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="decorative-element bottom-right">☕</div>
+        </section>
+
+        <!-- Ekran 2.5: Slider 2 (4 zdjęcia) -->
+        <section class="screen slider-screen slide-top" id="screen-2-5">
+            <div class="content-wrapper center-all">
+                <div class="slider-wrapper">
+                    <div class="slider-container">
+                        <div class="slider-track">
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_1735A95A-450E-44DA-A938-EC8A9CFE80C8.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_230256F4-389E-4B13-885A-899AF71873B4.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_23711D02-C524-4C08-A9F2-63B0E7D61028.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_238D9FA9-954D-4D75-8703-CF7B17D0B08A.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ekran 3: 21 marca - Związek (Wyróżniony) -->
+        <section class="screen highlighted-screen slide-right" id="screen-3">
+            <div class="content-wrapper center-all">
+                <div class="sparkles">✨</div>
+                <div class="date-badge special-badge">21 Marca</div>
+                <h2 class="event-title massive-title">JESTEŚMY RAZEEM!!!</h2>
+                <p class="description">W KOŃCUUU się udalooo. Co prawda pod twoją brama i tego nie planowałem ale wtedy
+                    było super no i co... oficjalnie od wtedy JESTEŚMY RAZEM czaisz to czasem nadal nmg w to uwierzyć że
+                    mam
+                    dziewczynę XD ❤️❤️❤️❤️ I TO W 1 DZIEN WIOSNYY AAA 🥰🥰 To był chyba najpiękniejszy dzień w moim
+                    życiuuu</p>
+
+                <div class="counter-card highlight-counter">
+                    <div class="counter-label">Minęło już:</div>
+                    <div class="counter-grid">
+                        <div class="counter-item"><span class="counter-num" id="months-5">0</span><span
+                                class="counter-unit">mies</span></div>
+                        <div class="counter-item"><span class="counter-num" id="days-5">0</span><span
+                                class="counter-unit">dni</span></div>
+                        <div class="counter-item"><span class="counter-num" id="hours-5">0</span><span
+                                class="counter-unit">godz</span></div>
+                        <div class="counter-item"><span class="counter-num" id="mins-5">0</span><span
+                                class="counter-unit">min</span></div>
+                        <div class="counter-item"><span class="counter-num" id="secs-5">0</span><span
+                                class="counter-unit">sek</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ekran 3.5: Slider 3 (4 zdjęcia) -->
+        <section class="screen slider-screen slide-bottom" id="screen-3-5">
+            <div class="content-wrapper center-all">
+                <div class="slider-wrapper">
+                    <div class="slider-container">
+                        <div class="slider-track">
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_4887BB94-1EB5-4AF4-BFE4-5A080A6AF203.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_65304B49-C882-4EEF-B711-4DBBBFC52B9E.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_71663011-1CCD-40AA-8217-E4ABF0CDBB81.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_7E6A70AD-AE93-484D-84D9-8B835160BAF4.png"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ekran 4: 25 kwietnia -->
+        <section class="screen slide-left" id="screen-4">
+            <div class="content-wrapper center-all">
+                <div class="date-badge">25 Kwietnia</div>
+                <h2 class="event-title">Pierwszy pocałunek</h2>
+                <p class="description">Noo tu też się zaczęło fajnieee też totalnie tego nie planowałem i pamiętam do
+                    dziś jak czułem ze chciałaś to zrobić przy wyjściu ale ja się mega stresowałem i tak odwróciłem
+                    głowę.... ALE SIE POPRAWILEEM ❤️😘 i od tamtego momentu się zaczeloooo 😘 Od tamtego dnia każdy
+                    całus jest co raz lepszyy❤️❤️ </p>
+
+                <div class="counter-card">
+                    <div class="counter-label">Minęło już:</div>
+                    <div class="counter-grid">
+                        <div class="counter-item"><span class="counter-num" id="months-7">0</span><span
+                                class="counter-unit">mies</span></div>
+                        <div class="counter-item"><span class="counter-num" id="days-7">0</span><span
+                                class="counter-unit">dni</span></div>
+                        <div class="counter-item"><span class="counter-num" id="hours-7">0</span><span
+                                class="counter-unit">godz</span></div>
+                        <div class="counter-item"><span class="counter-num" id="mins-7">0</span><span
+                                class="counter-unit">min</span></div>
+                        <div class="counter-item"><span class="counter-num" id="secs-7">0</span><span
+                                class="counter-unit">sek</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="decorative-element center-bg">💋</div>
+        </section>
+
+        <!-- Ekran 4.5: Slider 4 (4 zdjęcia) -->
+        <section class="screen slider-screen slide-top" id="screen-4-5">
+            <div class="content-wrapper center-all">
+                <div class="slider-wrapper">
+                    <div class="slider-container">
+                        <div class="slider-track">
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_8B4991A3-7502-4ED7-95EF-2A6AEACAFFE8.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_A7E57BDB-7A84-4674-9D38-9E73F07105B0.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_DBD1F3A8-C555-405F-9675-C8A57AF5B541.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_E0D7822D-3B41-45B6-8967-94BF82CB5413.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ekran 5: 20 czerwca -->
+        <section class="screen slide-right" id="screen-5">
+            <div class="content-wrapper center-all">
+                <div class="date-badge">20 Czerwca</div>
+                <h2 class="event-title">Pierwsze "kocham Cię"</h2>
+                <p class="description">Co prawda w trochę smutnych okolicznościach ale może to i lepiej 😁 Serio NIGDY
+                    CI TEGO NIE ZAPOMNE jak mi pomogłaś wtedy niesamowicie... Gdyby nie ty to pewnie bym sobie radził z
+                    całym tym ciężarem sam... Ale dziekujeee❤️❤️❤️ Przymierzałem się do tego dosyć długo ale nie było
+                    jakiejś fajnej okazji (dobra powiem ci że miałem z tyłu głowy że może powiem jak byliśmy na
+                    bulwarach ale jakoś się nie odważyłem 😔😔😔))). Ale jak to powiedziałem.... Taka ulgę poczułem o
+                    bozeeee
+                </p>
+
+                <div class="counter-card">
+                    <div class="counter-label">Minęło już:</div>
+                    <div class="counter-grid">
+                        <div class="counter-item"><span class="counter-num" id="months-9">0</span><span
+                                class="counter-unit">mies</span></div>
+                        <div class="counter-item"><span class="counter-num" id="days-9">0</span><span
+                                class="counter-unit">dni</span></div>
+                        <div class="counter-item"><span class="counter-num" id="hours-9">0</span><span
+                                class="counter-unit">godz</span></div>
+                        <div class="counter-item"><span class="counter-num" id="mins-9">0</span><span
+                                class="counter-unit">min</span></div>
+                        <div class="counter-item"><span class="counter-num" id="secs-9">0</span><span
+                                class="counter-unit">sek</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="decorative-element pulsing-heart">❤️</div>
+        </section>
+
+        <!-- Ekran 5.5: Slider 5 (3 zdjęcia) -->
+        <section class="screen slider-screen slide-bottom" id="screen-5-5">
+            <div class="content-wrapper center-all">
+                <div class="slider-wrapper">
+                    <div class="slider-container">
+                        <div class="slider-track">
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/Messenger_creation_EE66A0AE-3790-4BAC-8938-313C0DF86190.jpeg"
+                                        alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/d9a4f0b8-29da-471b-99e3-3cedc86cf951.jpg" alt="Zdjęcie">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-polaroid">
+                                    <img src="img/fec4c0cf-8b9f-4ccb-b71e-6457ac6d76a3.jpg" alt="Zdjęcie">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ekran 6: Finał (Zielona wstążka - skolioza) -->
+        <section class="screen final-screen slide-scale" id="screen-6">
+            <div class="content-wrapper center-all">
+                <div class="ribbon-icon">🎗️</div>
+                <h2 class="romantic-title">I słowa podziękowania...</h2>
+                <p class="description">Serio. Naprawdę. Wiem że mi to mówisz że nie muszę dziękować ale poprostu....
+                    Miałem
+                    wtedy tak ciężki okres... A ty jako jedyna z moimi rodzicami mnie tak mocno wspierałaś i
+                    pomagałas....
+                    Ten miś.... Siedziałaś w szpitalu gdy spałem i ledwo co kontaktowałem 🥹🥹🥹 a ty i tak na następny
+                    dzień przyszłaś wiedząc w jakim jestem stanie... Serio.... Nigdy ci tego nie zapomnę i naprawdę nie
+                    mam słów jak ci to opisać jak mi pomogłaś wtedy... I jak mi nadal pomagasz.... Dlatego mam nadzieję
+                    że ten prezent ci się spodoba (to nie jest w zamian za to że mi pomogłaś) ❤️❤️❤️ Miejmy nadzieję że
+                    wszystko będzie ze mną okej.... I z tobą też 🥰🥰❤️❤️ Naprawdę.... Przytulam się do tego misia
+                    bardzo
+                    bardzo bardzo często.... Tyle łez otarł.... Z resztą chyba ty jesteś jedyną osobą poza rodziną która
+                    widziała mnie płaczącego tak często.... W takim stanie psychicznym.... No poprostu brak mi słów
+                    naprawdę.... Kocham cię najmocniej na świecie jak się da i milion niestworzonych słów bo nwm jak to
+                    lepiej opisaccc 🥹🥹🥹❤️❤️❤️ Naprawdę doceniam to co dla mnie zrobiłaś z tą operacją skoliozy i
+                    wgl... poprostu chce żebyśmy się tak wspierali do końca życia... Jak chcesz
+                    od nowa oglądnąć to jest przycisk niżej 😘
+
+                    🎗️💚</p>
+                <button class="btn-secondary" onclick="restart()">Od nowa</button>
+            </div>
+        </section>
+
+        <!-- Kliknij tutaj hint (strzałka wskazująca na serduszka w prawym dolnym rogu) -->
+        <div id="click-here-hint" class="click-hint">
+            <span class="hint-text">Kliknij tutaj! 💖</span>
+            <svg class="hint-arrow" viewBox="0 0 100 100">
+                <path d="M 15,10 Q 55,10 75,65 M 75,65 L 58,58 M 75,65 L 72,46" fill="none" stroke="currentColor"
+                    stroke-width="4" stroke-linecap="round" />
+            </svg>
+        </div>
+
+        <!-- Przyciski nawigacyjne FAB w prawym dolnym rogu -->
+        <button id="prev-fab" class="fab-btn prev-btn" onclick="prevScreen()">
+            <svg viewBox="0 0 24 24" class="fab-icon">
+                <path
+                    d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.41,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.59,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"
+                    fill="currentColor" />
+            </svg>
+        </button>
+
+        <button id="next-fab" class="fab-btn next-btn" onclick="nextScreen()">
+            <svg viewBox="0 0 24 24" class="fab-icon">
+                <path
+                    d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.41,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.59,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"
+                    fill="currentColor" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Ukryty kontener dla definicji SVG (cross-browser clip-path fix) -->
+    <svg style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; overflow: hidden;">
+        <defs>
+            <clipPath id="paper-rip" clipPathUnits="objectBoundingBox">
+                <path
+                    d="M 0.05,0.05 
+                         L 0.1,0.03 L 0.15,0.06 L 0.2,0.04 L 0.25,0.07 L 0.3,0.03 L 0.35,0.05 L 0.4,0.02 L 0.45,0.04 L 0.5,0.02 L 0.55,0.05 L 0.6,0.03 L 0.65,0.06 L 0.7,0.04 L 0.75,0.07 L 0.8,0.03 L 0.85,0.05 L 0.9,0.02 L 0.95,0.05 
+                         L 0.97,0.1 L 0.95,0.15 L 0.98,0.2 L 0.94,0.25 L 0.97,0.3 L 0.95,0.35 L 0.97,0.4 L 0.94,0.45 L 0.96,0.5 L 0.93,0.55 L 0.96,0.6 L 0.94,0.65 L 0.97,0.7 L 0.95,0.75 L 0.97,0.8 L 0.94,0.85 L 0.96,0.9 L 0.93,0.95 
+                         L 0.9,0.97 L 0.85,0.94 L 0.8,0.96 L 0.75,0.93 L 0.7,0.96 L 0.65,0.94 L 0.6,0.97 L 0.55,0.94 L 0.5,0.96 L 0.45,0.93 L 0.4,0.96 L 0.35,0.93 L 0.3,0.96 L 0.25,0.94 L 0.2,0.96 L 0.15,0.93 L 0.1,0.95 L 0.05,0.93 
+                         L 0.03,0.9 L 0.05,0.85 L 0.02,0.8 L 0.05,0.75 L 0.03,0.7 L 0.06,0.65 L 0.04,0.6 L 0.06,0.55 L 0.03,0.5 L 0.05,0.45 L 0.02,0.4 L 0.05,0.35 L 0.03,0.3 L 0.06,0.25 L 0.04,0.2 L 0.06,0.15 L 0.03,0.1 L 0.05,0.05 Z" />
+            </clipPath>
+        </defs>
+    </svg>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
