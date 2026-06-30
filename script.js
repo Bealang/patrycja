@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initHearts();
     initGestureListeners();
     initImagePreloader();
+    updateBodyBackground();
 });
 
 function initImagePreloader() {
@@ -140,6 +141,7 @@ function nextScreen() {
 
         currentScreenIndex++;
         updateFABs();
+        updateBodyBackground();
     }
 }
 
@@ -209,6 +211,7 @@ function prevScreen() {
 
         currentScreenIndex--;
         updateFABs();
+        updateBodyBackground();
     }
 }
 
@@ -245,6 +248,7 @@ function restart() {
     currentPhotoIndex = 0;
     hasClickedFAB = false;
     updateFABs();
+    updateBodyBackground();
 }
 
 // Funkcja sterująca widocznością przycisków nawigacji FAB i podpowiedzi
@@ -278,6 +282,18 @@ function updateFABs() {
         } else {
             hint.classList.remove('visible');
         }
+    }
+}
+
+function updateBodyBackground() {
+    const currentScreen = screens[currentScreenIndex];
+    if (!currentScreen) return;
+    document.body.classList.remove('bg-highlighted', 'bg-final');
+    
+    if (currentScreen.classList.contains('highlighted-screen')) {
+        document.body.classList.add('bg-highlighted');
+    } else if (currentScreen.classList.contains('final-screen')) {
+        document.body.classList.add('bg-final');
     }
 }
 
@@ -369,20 +385,18 @@ function updateLiveCounters() {
     const endDate = new Date(now);
 
     let months = (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth());
-    if (endDate.getDate() < startDate.getDate()) {
-        months--;
-    }
-
-    let tempDate = new Date(startDate);
+    
+    // Tworzymy tymczasową datę, aby sprawdzić, czy osiągnęliśmy dokładnie ten sam czas w docelowym miesiącu
+    const tempDate = new Date(startDate);
     tempDate.setMonth(tempDate.getMonth() + months);
-
-    // Jeśli po dodaniu miesięcy tempDate wykracza poza endDate (np. z powodu nieosiągniętej godziny w danym dniu)
-    if (tempDate > endDate) {
+    
+    // Jeśli tymczasowa data jest w przyszłości względem czasu obecnego, oznacza to, że pełny miesiąc jeszcze nie minął
+    if (tempDate.getTime() > endDate.getTime()) {
         months--;
-        tempDate = new Date(startDate);
+        tempDate.setTime(startDate.getTime());
         tempDate.setMonth(tempDate.getMonth() + months);
     }
-
+    
     const diffMs = endDate.getTime() - tempDate.getTime();
 
     const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
