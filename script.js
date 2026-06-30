@@ -373,8 +373,16 @@ function updateLiveCounters() {
         months--;
     }
 
-    const tempDate = new Date(startDate);
+    let tempDate = new Date(startDate);
     tempDate.setMonth(tempDate.getMonth() + months);
+
+    // Jeśli po dodaniu miesięcy tempDate wykracza poza endDate (np. z powodu nieosiągniętej godziny w danym dniu)
+    if (tempDate > endDate) {
+        months--;
+        tempDate = new Date(startDate);
+        tempDate.setMonth(tempDate.getMonth() + months);
+    }
+
     const diffMs = endDate.getTime() - tempDate.getTime();
 
     const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
