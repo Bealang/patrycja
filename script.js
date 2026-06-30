@@ -3,12 +3,61 @@ let isEnvelopeActive = true; // Zmienna stanu dla koperty startowej
 document.addEventListener('DOMContentLoaded', () => {
     initHearts();
     initGestureListeners();
-    // Uruchomienie animacji latającego kursora
-    const cursor = document.getElementById('envelope-cursor');
-    if (cursor) {
-        cursor.classList.add('flying');
-    }
+    initImagePreloader();
 });
+
+function initImagePreloader() {
+    const images = document.querySelectorAll('img');
+    const totalImages = images.length;
+    const loadingScreen = document.getElementById('loading-screen');
+    const loadingBar = document.getElementById('loading-bar');
+    const loadingPercentage = document.getElementById('loading-percentage');
+    const cursor = document.getElementById('envelope-cursor');
+    
+    if (totalImages === 0) {
+        hideLoader();
+        return;
+    }
+    
+    let loadedCount = 0;
+    
+    function imageLoaded() {
+        loadedCount++;
+        const percentage = Math.round((loadedCount / totalImages) * 100);
+        
+        if (loadingBar) loadingBar.style.width = percentage + '%';
+        if (loadingPercentage) loadingPercentage.textContent = percentage + '%';
+        
+        if (loadedCount >= totalImages) {
+            setTimeout(hideLoader, 300);
+        }
+    }
+    
+    images.forEach(img => {
+        if (img.complete) {
+            imageLoaded();
+        } else {
+            img.addEventListener('load', imageLoaded);
+            img.addEventListener('error', imageLoaded);
+        }
+    });
+    
+    function hideLoader() {
+        if (loadingScreen) {
+            loadingScreen.classList.add('fade-out');
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                if (cursor) {
+                    cursor.classList.add('flying');
+                }
+            }, 600);
+        } else {
+            if (cursor) {
+                cursor.classList.add('flying');
+            }
+        }
+    }
+}
 
 let currentScreenIndex = 0;
 let currentPhotoIndex = 0; // Śledzenie aktywnego zdjęcia w suwakach

@@ -1259,3 +1259,74 @@ p.description {
     transform: translate(-50%, -50%) scale(0.82) translateY(8px);
   }
 }
+/* --- Ekran ladowania --- */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background-color: var(--bg-primary);
+  z-index: 3000; /* Higher than overlay (2000) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 600ms var(--ease-out), filter 600ms var(--ease-out);
+}
+
+.loading-screen.fade-out {
+  opacity: 0;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.loader-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 280px;
+  width: 80%;
+}
+
+.pulsing-heart-loader {
+  font-size: 3.5rem;
+  color: var(--accent-color);
+  animation: heartPulse 1.2s infinite ease-in-out;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 4px 12px rgba(255, 20, 147, 0.25));
+}
+
+.loading-text {
+  font-family: 'Caveat', cursive;
+  font-size: 1.8rem;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+
+.loading-bar-container {
+  width: 100%;
+  height: 6px;
+  background-color: rgba(255, 20, 147, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.loading-bar {
+  width: 0%;
+  height: 100%;
+  background-color: var(--accent-color);
+  border-radius: 3px;
+  transition: width 200ms ease-out;
+  box-shadow: 0 0 8px rgba(255, 20, 147, 0.5);
+}
+
+.loading-percentage {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--accent-color);
+}
